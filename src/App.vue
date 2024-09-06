@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <Home />
+    <DashboardOverview />
+    <QuickAccess />
   </div>
 </template>
 
 <script>
-import Home from './components/Home.vue'
+import DashboardOverview from './components/DashboardOverview.vue'
+import QuickAccess from './components/QuickAccess.vue'
 
 export default {
   name: 'App',
   components: {
-    Home,
+    QuickAccess,
+    DashboardOverview,
   },
 }
 </script>
@@ -24,6 +27,15 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  height: 100vh;
   margin: 0;
+}
+
+#app {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  height: 100%;
 }
 </style>
