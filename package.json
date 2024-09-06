@@ -21,6 +21,8 @@
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "node-sass": "^9.0.0",
+    "sass-loader": "^16.0.1",
     "vue-template-compiler": "^2.6.14"
   },
   "eslintConfig": {
@@ -36,10 +38,27 @@
       "parser": "@babel/eslint-parser"
     },
     "rules": {
-      "singleQuote": true,
-      "semi": 0,
-      "trailingComma": "es5",
-      "code": 80
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "off"
+      ],
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
+      "indent": [
+        "error",
+        2
+      ],
+      "max-len": [
+        "error",
+        {
+          "code": 80
+        }
+      ]
     }
   },
   "browserslist": [
