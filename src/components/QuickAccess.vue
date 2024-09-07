@@ -66,13 +66,14 @@ export default {
   align-items: center;
   grid-column: 2 / -1;
   gap: 80px;
+  margin: 0 15px;
 
   background-color: #56698f;
 
   .logo {
     position: absolute;
     top: 20px;
-    right: 20px;
+    right: 5px;
   }
 
   .options-wrapper {
@@ -87,7 +88,7 @@ export default {
       height: 300px;
       background-color: #ef7f1a;
       border-radius: 5px;
-      box-shadow: 0 5px 5px #3f4653;
+      box-shadow: 0px 4px 4px 1px #00000033;
 
       .notification-count {
         display: flex;
@@ -102,6 +103,7 @@ export default {
         background-color: #acd91b;
         font-size: 32px;
         font-weight: 600;
+        color: black;
       }
 
       .option-items {
@@ -121,7 +123,6 @@ export default {
         .option-name {
           font-size: 36px;
           font-weight: 600;
-          color: #f2f2f2;
           white-space: nowrap;
           grid-row: 1 / 2;
         }

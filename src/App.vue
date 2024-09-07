@@ -30,6 +30,7 @@ body {
 
   height: 100vh;
   margin: 0;
+  color: #f2f2f2;
 }
 
 #app {
@@ -37,5 +38,6 @@ body {
   grid-template-columns: repeat(3, 1fr);
   width: 100%;
   height: 100%;
+  background-color: #56698f;
 }
 </style>
