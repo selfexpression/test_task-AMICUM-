@@ -63,10 +63,11 @@ export default {
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   grid-column: 2 / -1;
   gap: 80px;
   margin: 0 15px;
+  padding-bottom: 130px;
 
   background-color: #56698f;
 
