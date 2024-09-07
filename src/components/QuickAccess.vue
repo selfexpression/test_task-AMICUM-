@@ -1,13 +1,21 @@
 <template>
-  <section class="section-container">
-    <div v-for="section in sections" :key="section.id" class="section">
-      <div class="section-items">
-        <img
-          :src="getIconComponent(section.id)"
-          alt="section"
-          class="section-icon"
-        />
-        {{ section.name }}
+  <section class="options-container">
+    <div class="logo">
+      <img src="@/assets/icons/logo.svg" alt="logo" />
+    </div>
+    <div class="options-wrapper">
+      <div v-for="option in options" :key="option.id" class="options">
+        <div v-if="option.id === 2" class="notification-count">2</div>
+        <div class="option-items">
+          <img
+            :src="getOptionIcon(option.id)"
+            alt="option"
+            class="option-icon"
+          />
+          <span class="option-name">
+            {{ option.name }}
+          </span>
+        </div>
       </div>
     </div>
   </section>
@@ -23,7 +31,7 @@ export default {
   name: 'QuickAccess',
   data() {
     return {
-      sections: [
+      options: [
         { id: 1, name: 'Начать работу' },
         { id: 2, name: 'Уведомления' },
         { id: 3, name: 'Обучение' },
@@ -32,7 +40,7 @@ export default {
     }
   },
   methods: {
-    getIconComponent(id) {
+    getOptionIcon(id) {
       switch (id) {
         case 1:
           return bump
@@ -51,33 +59,72 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section-container {
+.options-container {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
   grid-column: 2 / -1;
   gap: 80px;
 
   background-color: #56698f;
 
-  .section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 390px;
-    height: 300px;
-    background-color: #ef7f1a;
+  .logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
 
-    .section-items {
-      display: flex;
-      flex-direction: column-reverse;
-      justify-content: center;
-      align-items: center;
+  .options-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 80px;
 
-      .section-icon {
-        object-fit: contain;
-        max-width: 100%;
+    .options {
+      position: relative;
+      width: 390px;
+      height: 300px;
+      background-color: #ef7f1a;
+      border-radius: 5px;
+      box-shadow: 0 5px 5px #3f4653;
+
+      .notification-count {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        top: -20px;
+        right: -20px;
+        background-color: #acd91b;
+        font-size: 32px;
+        font-weight: 600;
+      }
+
+      .option-items {
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: 1fr;
+        justify-items: center;
+        align-items: center;
+        height: 100%;
+        padding: 20px 0;
+
+        .option-icon {
+          object-fit: contain;
+          grid-row: 2 / -1;
+        }
+
+        .option-name {
+          font-size: 36px;
+          font-weight: 600;
+          color: #f2f2f2;
+          white-space: nowrap;
+          grid-row: 1 / 2;
+        }
       }
     }
   }
