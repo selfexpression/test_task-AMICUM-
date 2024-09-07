@@ -2,8 +2,8 @@
   <section class="dashboard-container">
     <div class="dashboard-header">
       <div class="date-wrapper">
-        <span>18.07.2022</span>
-        <span>10:06</span>
+        <span>{{ currentDate }}</span>
+        <span>{{ currentTime }}</span>
       </div>
       <button type="button" class="logout-button" aria-label="logout_button">
         <span>Выход</span>
@@ -46,6 +46,7 @@
 <script>
 import notebook from '@/assets/icons/notebook.svg'
 import exam from '@/assets/icons/exam.svg'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -58,7 +59,14 @@ export default {
       ],
     }
   },
+  computed: {
+    ...mapState({
+      currentDate: (state) => state.currentDate,
+      currentTime: (state) => state.currentTime,
+    }),
+  },
   methods: {
+    ...mapActions(['startTimer', 'stopTimer', 'updateCurrentDateAndTime']),
     getIconComponent(id) {
       switch (id) {
         case 1:
@@ -79,6 +87,13 @@ export default {
           return null
       }
     },
+  },
+  created() {
+    this.updateCurrentDateAndTime()
+    this.startTimer()
+  },
+  beforeDestroy() {
+    this.stopTimer()
   },
 }
 </script>
@@ -185,6 +200,7 @@ export default {
 
     .personal-info {
       display: grid;
+      justify-items: center;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(2, 1fr);
       gap: 20px;
@@ -213,6 +229,7 @@ export default {
           border-radius: 50%;
 
           .dashboard-option-icon {
+            margin-left: 10px;
             width: 75px;
             height: 75px;
           }

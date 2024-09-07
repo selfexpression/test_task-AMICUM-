@@ -6,7 +6,7 @@
     <div class="options-wrapper">
       <div v-for="option in options" :key="option.id" class="options">
         <div v-if="option.id === 2" class="notification-count">2</div>
-        <div class="option-items">
+        <div class="option-item">
           <img
             :src="getOptionIcon(option.id)"
             alt="option"
@@ -107,7 +107,7 @@ export default {
         color: black;
       }
 
-      .option-items {
+      .option-item {
         display: grid;
         grid-template-rows: repeat(3, 1fr);
         grid-template-columns: 1fr;
@@ -115,6 +115,7 @@ export default {
         align-items: center;
         height: 100%;
         padding: 20px 0;
+        cursor: pointer;
 
         .option-icon {
           object-fit: contain;
