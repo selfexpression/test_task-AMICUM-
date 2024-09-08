@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="[theme]">
     <DashboardOverview />
     <QuickAccess />
   </div>
@@ -8,6 +8,7 @@
 <script>
 import DashboardOverview from './components/DashboardOverview.vue'
 import QuickAccess from './components/QuickAccess.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -15,10 +16,15 @@ export default {
     QuickAccess,
     DashboardOverview,
   },
+  computed: {
+    ...mapState({
+      theme: (state) => state.theme,
+    }),
+  },
 }
 </script>
 
-<style>
+<style lang="scss">
 * {
   box-sizing: border-box;
 }
@@ -38,6 +44,13 @@ body {
   grid-template-columns: repeat(3, 1fr);
   width: 100%;
   height: 100%;
-  background-color: #56698f;
+
+  &.light {
+    background-color: #ffffff;
+  }
+
+  &.dark {
+    background-color: #56698f;
+  }
 }
 </style>

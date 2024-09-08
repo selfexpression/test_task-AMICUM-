@@ -1,17 +1,21 @@
 <template>
-  <section class="dashboard-container">
+  <section :class="['dashboard-container', theme]">
     <div class="dashboard-header">
-      <div class="date-wrapper">
+      <div :class="['date-wrapper', theme]">
         <span>{{ currentDate }}</span>
         <span>{{ currentTime }}</span>
       </div>
-      <button type="button" class="logout-button" aria-label="logout_button">
+      <button
+        type="button"
+        :class="['logout-button', theme]"
+        aria-label="logout_button"
+      >
         <span>Выход</span>
-        <img src="@/assets/icons/logout.svg" alt="logout" />
+        <LogoutIcon :class="['logout-icon', theme]" />
       </button>
     </div>
-    <div class="theme-toggler">
-      <img src="@/assets/icons/theme_toggler.svg" alt="theme_toggler_icon" />
+    <div @click="changeTheme()" class="theme-toggler">
+      <ThemeTogglerIcon :class="['theme-toggler-icon', theme]" />
     </div>
     <div class="dashboard-info">
       <div class="personal-data">
@@ -28,9 +32,9 @@
       <div class="personal-info">
         <div v-for="item in infoItems" class="dashboard-option" :key="item.id">
           <div class="diagram-option">
-            <img
+            <component
               v-if="!item.isInteractive"
-              :src="getIconComponent(item.id)"
+              :is="getIconComponent(item.id)"
               alt="dashboard_option_icon"
               class="dashboard-option-icon"
             />
@@ -44,11 +48,20 @@
 </template>
 
 <script>
-import notebook from '@/assets/icons/notebook.svg'
-import exam from '@/assets/icons/exam.svg'
-import { mapState, mapActions } from 'vuex'
+import Notebook from '@/assets/icons/notebook.svg'
+import Exam from '@/assets/icons/exam.svg'
+import LogoutIcon from '@/assets/icons/logout.svg'
+import ThemeTogglerIcon from '@/assets/icons/theme_toggler.svg'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
+  name: 'DashboardOverview',
+  components: {
+    Notebook,
+    Exam,
+    LogoutIcon,
+    ThemeTogglerIcon,
+  },
   data() {
     return {
       infoItems: [
@@ -63,16 +76,20 @@ export default {
     ...mapState({
       currentDate: (state) => state.currentDate,
       currentTime: (state) => state.currentTime,
+      theme: (state) => state.theme,
     }),
   },
   methods: {
+    ...mapMutations({
+      changeTheme: 'setTheme',
+    }),
     ...mapActions(['startTimer', 'stopTimer', 'updateCurrentDateAndTime']),
     getIconComponent(id) {
       switch (id) {
         case 1:
-          return notebook
+          return 'Notebook'
         case 2:
-          return exam
+          return 'Exam'
         default:
           return null
       }
@@ -108,9 +125,16 @@ export default {
   grid-column: 1 / 2;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-color: #353d54;
   padding: 30px 40px;
   box-shadow: 4px 0px 10px 0px #00000040;
+
+  &.light {
+    background-color: #f2f2f2;
+  }
+
+  &.dark {
+    background-color: #353d54;
+  }
 
   .dashboard-header {
     display: flex;
@@ -125,6 +149,14 @@ export default {
       gap: 5px;
       font-weight: 700;
       font-size: 20px;
+
+      &.dark {
+        color: #f2f2f2;
+      }
+
+      &.light {
+        color: #586c92;
+      }
     }
 
     .logout-button {
@@ -135,10 +167,17 @@ export default {
 
       font-size: 24px;
       font-weight: 600;
-      color: #f2f2f2;
       background-color: transparent;
       border: none;
       cursor: pointer;
+
+      &.dark {
+        color: #f2f2f2;
+      }
+
+      &.light {
+        color: #353d54;
+      }
     }
   }
 
@@ -154,10 +193,19 @@ export default {
     background-color: #56698f;
     cursor: pointer;
 
-    img {
+    .theme-toggler-icon {
       position: absolute;
-      left: -25%;
-      // right: -25%;
+      transition: transform 0.2s ease-in-out;
+
+      &.dark {
+        color: #e6e6e6;
+        transform: translateX(-25%);
+      }
+
+      &.light {
+        color: #353d54;
+        transform: translateX(50%);
+      }
     }
   }
 
@@ -230,8 +278,6 @@ export default {
 
           .dashboard-option-icon {
             margin-left: 10px;
-            width: 75px;
-            height: 75px;
           }
         }
 

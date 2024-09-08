@@ -1,14 +1,14 @@
 <template>
-  <section class="options-container">
+  <section :class="['options-container', theme]">
     <div class="logo">
-      <img src="@/assets/icons/logo.svg" alt="logo" />
+      <Logo />
     </div>
     <div class="options-wrapper">
       <div v-for="option in options" :key="option.id" class="options">
         <div v-if="option.id === 2" class="notification-count">2</div>
         <div class="option-item">
-          <img
-            :src="getOptionIcon(option.id)"
+          <component
+            :is="getOptionIcon(option.id)"
             alt="option"
             class="option-icon"
           />
@@ -22,13 +22,21 @@
 </template>
 
 <script>
-import bump from '@/assets/icons/bump.svg'
-import notifications from '@/assets/icons/notifications.svg'
-import education from '@/assets/icons/education.svg'
-import achievements from '@/assets/icons/achievements.svg'
+import Logo from '@/assets/icons/logo.svg'
+import Bump from '@/assets/icons/bump.svg'
+import Notifications from '@/assets/icons/notifications.svg'
+import Education from '@/assets/icons/education.svg'
+import Achievements from '@/assets/icons/achievements.svg'
 
 export default {
   name: 'QuickAccess',
+  components: {
+    Logo,
+    Bump,
+    Notifications,
+    Education,
+    Achievements,
+  },
   data() {
     return {
       options: [
@@ -43,13 +51,13 @@ export default {
     getOptionIcon(id) {
       switch (id) {
         case 1:
-          return bump
+          return 'Bump'
         case 2:
-          return notifications
+          return 'Notifications'
         case 3:
-          return education
+          return 'Education'
         case 4:
-          return achievements
+          return 'Achievements'
         default:
           return null
       }
@@ -68,8 +76,6 @@ export default {
   gap: 80px;
   margin: 0 15px;
   padding-bottom: 130px;
-
-  background-color: #56698f;
 
   .logo {
     position: absolute;

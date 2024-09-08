@@ -18,8 +18,8 @@ export const store = new Vuex.Store({
     timerId: null,
   },
   mutations: {
-    setTheme(state, theme) {
-      state.theme = theme
+    setTheme(state) {
+      state.theme = state.theme === 'dark' ? 'light' : 'dark'
     },
     setCurrentDate(state, date) {
       state.currentDate = date
@@ -62,7 +62,7 @@ export const store = new Vuex.Store({
     startTimer({ dispatch, commit }) {
       const timerId = setInterval(() => {
         dispatch('updateCurrentDateAndTime')
-      }, 1000)
+      }, 60000)
 
       commit('setTimerId', timerId)
     },
