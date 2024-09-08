@@ -1,5 +1,5 @@
 <template>
-  <section :class="['options-container', theme]">
+  <section class="options-container">
     <div class="logo">
       <Logo />
     </div>

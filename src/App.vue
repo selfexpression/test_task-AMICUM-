@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="[theme]">
+  <div id="app" :class="theme">
     <DashboardOverview />
     <QuickAccess />
   </div>

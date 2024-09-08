@@ -46,10 +46,6 @@
       "semi": [
         "off"
       ],
-      "comma-dangle": [
-        "error",
-        "always-multiline"
-      ],
       "max-len": [
         "error",
         {

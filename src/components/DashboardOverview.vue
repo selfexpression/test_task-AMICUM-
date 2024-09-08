@@ -32,13 +32,38 @@
       <div class="personal-info">
         <div v-for="item in infoItems" class="dashboard-option" :key="item.id">
           <div class="diagram-option">
+            <svg width="100%" height="100%" viewBox="0 0 145 145">
+              <circle
+                cx="72.5"
+                cy="72.5"
+                r="60"
+                stroke="#353D54"
+                stroke-width="10"
+                fill="none"
+              />
+              <circle
+                cx="72.5"
+                cy="72.5"
+                r="60"
+                :stroke="getDiagramColor(item.id)"
+                stroke-width="10"
+                fill="none"
+                stroke-dasharray="377"
+                :stroke-dashoffset="getFillPercentage(item.id)"
+                stroke-linecap="round"
+                transform="rotate(-90 72.5 72.5)"
+              />
+            </svg>
             <component
               v-if="!item.isInteractive"
               :is="getIconComponent(item.id)"
               alt="dashboard_option_icon"
               class="dashboard-option-icon"
             />
-            <p v-else>{{ getInteractiveInfo(item.id) }}</p>
+            <p v-else :class="item.id === 3 ? 'testing' : 'certification'">
+              {{ getInteractiveInfo(item.id) }}
+              <span v-if="item.id === 4">дней</span>
+            </p>
           </div>
           <span class="option-name">{{ item.name }}</span>
         </div>
@@ -52,7 +77,7 @@ import Notebook from '@/assets/icons/notebook.svg'
 import Exam from '@/assets/icons/exam.svg'
 import LogoutIcon from '@/assets/icons/logout.svg'
 import ThemeTogglerIcon from '@/assets/icons/theme_toggler.svg'
-import { mapState, mapActions, mapMutations } from 'vuex'
+import { mapState, mapActions, mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'DashboardOverview',
@@ -77,13 +102,27 @@ export default {
       currentDate: (state) => state.currentDate,
       currentTime: (state) => state.currentTime,
       theme: (state) => state.theme,
+      certification: (state) => state.certification,
+      testResults: (state) => state.testResults,
+      preShiftTraining: (state) => state.preShiftTraining,
+      briefing: (state) => state.briefing,
     }),
   },
   methods: {
     ...mapMutations({
       changeTheme: 'setTheme',
     }),
-    ...mapActions(['startTimer', 'stopTimer', 'updateCurrentDateAndTime']),
+    ...mapActions([
+      'startTimer',
+      'stopTimer',
+      'updateCurrentDateAndTime',
+      'loadInfoAboutTraining',
+    ]),
+    ...mapGetters([
+      'daysLeft',
+      'testCompletionPercentage',
+      'certificationDatePercentage',
+    ]),
     getIconComponent(id) {
       switch (id) {
         case 1:
@@ -94,12 +133,56 @@ export default {
           return null
       }
     },
+    getDiagramColor(id) {
+      switch (id) {
+        case 1:
+          return this.getPreShiftAndBriefingColor(this.briefing)
+        case 2:
+          return this.getPreShiftAndBriefingColor(this.preShiftTraining)
+        case 3:
+          return '#ACD91B'
+        case 4:
+          return this.getCertificationColor(this.daysLeft())
+        default:
+          return null
+      }
+    },
+    getPreShiftAndBriefingColor(param) {
+      switch (param) {
+        case null:
+          return '#353D54'
+        case false:
+          return '#EF7F1A'
+        case true:
+          return '#B2D63C'
+        default:
+          return '#353D54'
+      }
+    },
+    getCertificationColor(days) {
+      return days < 30 ? '#EF7F1A' : '#B2D63C'
+    },
+    getFillPercentage(id) {
+      const dasharray = 377
+
+      switch (id) {
+        case 1:
+        case 2:
+          return 0
+        case 3: {
+          return dasharray * (1 - this.testCompletionPercentage() / 100)
+        }
+        case 4: {
+          return dasharray * (1 - this.certificationDatePercentage() / 100)
+        }
+      }
+    },
     getInteractiveInfo(id) {
       switch (id) {
         case 3:
-          return '122'
+          return this.testResults.completedTests
         case 4:
-          return '1825 дней'
+          return this.daysLeft()
         default:
           return null
       }
@@ -108,6 +191,7 @@ export default {
   created() {
     this.updateCurrentDateAndTime()
     this.startTimer()
+    this.loadInfoAboutTraining()
   },
   beforeDestroy() {
     this.stopTimer()
@@ -176,7 +260,7 @@ export default {
       }
 
       &.light {
-        color: #353d54;
+        color: #586c92;
       }
     }
   }
@@ -254,10 +338,10 @@ export default {
       gap: 20px;
 
       .dashboard-option {
-        display: flex;
-        flex-direction: column-reverse;
+        display: grid;
+        grid-template-rows: auto;
+        justify-items: center;
         align-items: center;
-        justify-content: space-evenly;
         text-align: center;
         height: 260px;
         width: 281px;
@@ -268,22 +352,52 @@ export default {
         box-shadow: 0px 4px 4px 1px #00000033;
 
         .diagram-option {
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          position: relative;
+          display: inline-grid;
+          place-content: center;
           width: 145px;
-          height: 145px;
-          border: 10px solid #b2d63c;
-          border-radius: 50%;
+          aspect-ratio: 1;
+          font-weight: 600;
+          grid-row: 2;
+
+          .dashboard-option-icon,
+          p {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+
+          .testing,
+          .certification {
+            margin: 0;
+          }
+
+          .testing {
+            font-size: 45px;
+          }
+
+          .certification {
+            display: flex;
+            flex-direction: column;
+            font-size: 40px;
+
+            span {
+              font-size: 20px;
+              font-weight: 700;
+            }
+          }
 
           .dashboard-option-icon {
-            margin-left: 10px;
+            margin-left: 5px;
           }
         }
 
         .option-name {
-          word-break: break-word;
           max-width: 60%;
+          align-self: flex-end;
+          grid-row: 1;
+          word-break: break-word;
         }
       }
     }
