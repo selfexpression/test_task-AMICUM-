@@ -246,14 +246,18 @@ export default {
     .logout-button {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end;
       gap: 10px;
-
+      width: max-content;
       font-size: 24px;
       font-weight: 600;
       background-color: transparent;
       border: none;
       cursor: pointer;
+
+      .logout-icon {
+        width: 20%;
+      }
 
       &.dark {
         color: #f2f2f2;
@@ -389,6 +393,7 @@ export default {
           }
 
           .dashboard-option-icon {
+            width: 50%;
             margin-left: 5px;
           }
         }
@@ -398,6 +403,161 @@ export default {
           align-self: flex-end;
           grid-row: 1;
           word-break: break-word;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 2560px) and (max-width: 3840px) {
+  .dashboard-container {
+    padding: 40px 50px;
+
+    .dashboard-header {
+      .date-wrapper,
+      .logout-button {
+        font-size: 56px;
+
+        .logout-icon {
+          width: 30%;
+        }
+      }
+    }
+
+    .theme-toggler {
+      width: 120px;
+      height: 40px;
+
+      .theme-toggler-icon {
+        width: 80%;
+      }
+    }
+
+    .dashboard-info {
+      gap: 60px;
+
+      .personal-data {
+        gap: 20px;
+
+        .name {
+          font-size: 72px;
+        }
+
+        .date-of-birth {
+          font-size: 46px;
+        }
+
+        .other-info {
+          font-size: 36px;
+        }
+      }
+
+      .personal-info {
+        gap: 35px;
+
+        .dashboard-option {
+          width: 100%;
+          height: 100%;
+          aspect-ratio: 1;
+          font-size: 36px;
+
+          .diagram-option {
+            width: 360px;
+
+            .dashboard-option-icon {
+              width: 40%;
+            }
+
+            .testing {
+              font-size: 56px;
+            }
+
+            .certification {
+              font-size: 50px;
+
+              span {
+                font-size: 32px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  .dashboard-container {
+    padding: 15px 20px;
+
+    .dashboard-header {
+      .date-wrapper,
+      .logout-button {
+        font-size: 14px;
+
+        .logout-icon {
+          width: 10%;
+        }
+      }
+    }
+
+    .theme-toggler {
+      width: 35px;
+      height: 10px;
+
+      .theme-toggler-icon {
+        width: 60%;
+      }
+    }
+
+    .dashboard-info {
+      gap: 20px;
+
+      .personal-data {
+        gap: 7px;
+
+        .name {
+          font-size: 18px;
+        }
+
+        .date-of-birth {
+          font-size: 16px;
+        }
+
+        .other-info {
+          font-size: 14px;
+        }
+      }
+
+      .personal-info {
+        gap: 10px;
+
+        .dashboard-option {
+          width: 100%;
+          height: 100%;
+          aspect-ratio: 1;
+          font-size: 14px;
+
+          .diagram-option {
+            width: 90px;
+
+            .dashboard-option-icon {
+              width: 40%;
+              margin-left: 2px;
+            }
+
+            .testing {
+              font-size: 24px;
+            }
+
+            .certification {
+              font-size: 20px;
+
+              span {
+                font-size: 16px;
+              }
+            }
+          }
         }
       }
     }

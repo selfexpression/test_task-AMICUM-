@@ -4,7 +4,7 @@
       <Logo />
     </div>
     <div class="options-wrapper">
-      <div v-for="option in options" :key="option.id" class="options">
+      <div v-for="option in options" :key="option.id" class="option">
         <div
           v-if="option.id === 2 && !!notifications"
           class="notification-count"
@@ -100,7 +100,7 @@ export default {
     grid-template-rows: repeat(2, 1fr);
     gap: 80px;
 
-    .options {
+    .option {
       position: relative;
       width: 390px;
       height: 300px;
@@ -137,6 +137,7 @@ export default {
         .option-icon {
           object-fit: contain;
           grid-row: 2 / -1;
+          width: 40%;
         }
 
         .option-name {
@@ -144,6 +145,73 @@ export default {
           font-weight: 600;
           white-space: nowrap;
           grid-row: 1 / 2;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 2560px) and (max-width: 3840px) {
+  .options-container {
+    .options-wrapper {
+      width: 60%;
+      gap: 200px;
+
+      .option {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 13 / 10;
+
+        .notification-count {
+          width: 80px;
+          height: 80px;
+          font-size: 44px;
+          top: -30px;
+          right: -30px;
+        }
+
+        .option-item {
+          .option-icon {
+            width: 40%;
+          }
+
+          .option-name {
+            font-size: 72px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  .options-container {
+    padding-bottom: 60px;
+
+    .options-wrapper {
+      gap: 20px;
+
+      .option {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 13 / 10;
+
+        .notification-count {
+          width: 40px;
+          height: 40px;
+          font-size: 24px;
+          top: -10px;
+          right: -10px;
+        }
+
+        .option-item {
+          .option-icon {
+            width: 30%;
+          }
+
+          .option-name {
+            font-size: 20px;
+          }
         }
       }
     }
