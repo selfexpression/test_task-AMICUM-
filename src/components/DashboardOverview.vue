@@ -64,7 +64,9 @@
             />
             <p v-else :class="item.id === 3 ? 'testing' : 'certification'">
               {{ getInteractiveInfo(item.id) }}
-              <span v-if="item.id === 4">дней</span>
+              <span v-if="item.id === 4">{{
+                getNoun(getInteractiveInfo(item.id), 'день', 'дней', 'дня')
+              }}</span>
             </p>
           </div>
           <span class="option-name">{{ item.name }}</span>
@@ -80,6 +82,7 @@ import Exam from '@/assets/icons/exam.svg'
 import LogoutIcon from '@/assets/icons/logout.svg'
 import ThemeTogglerIcon from '@/assets/icons/theme_toggler.svg'
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex'
+import { getNoun } from '@/shared/utils'
 
 export default {
   name: 'DashboardOverview',
@@ -189,6 +192,7 @@ export default {
           return null
       }
     },
+    getNoun,
   },
   created() {
     this.updateCurrentDateAndTime()
