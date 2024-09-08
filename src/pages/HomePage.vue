@@ -1,13 +1,13 @@
 <template>
-  <div class="home-page">
+  <div class="container">
     <DashboardOverview />
     <QuickAccess />
   </div>
 </template>
 
 <script>
-import DashboardOverview from './DashboardOverview.vue'
-import QuickAccess from './QuickAccess.vue'
+import DashboardOverview from '@/components/DashboardOverview'
+import QuickAccess from '@/components/QuickAccess'
 
 export default {
   components: {
@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style scoped>
-.home-page {
+.container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   width: 100%;

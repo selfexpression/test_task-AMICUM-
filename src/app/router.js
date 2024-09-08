@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HomePage from './components/HomePage.vue'
-import AchievementsPage from './components/AchievementsPage.vue'
-import EducationPage from './components/EducationPage.vue'
-import StartWorkingPage from './components/StartWorkingPage.vue'
-import NotificationsPage from './components/NotificationsPage.vue'
-import LoginPage from './components/LoginPage.vue'
+import HomePage from '@/pages/HomePage'
+import AchievementsPage from '@/pages/AchievementsPage'
+import EducationPage from '@/pages/EducationPage'
+import StartWorkingPage from '@/pages/StartWorkingPage'
+import NotificationsPage from '@/pages/NotificationsPage'
+import LoginPage from '@/pages/LoginPage'
 
 Vue.use(Router)
 
