@@ -5,14 +5,16 @@
         <span>{{ currentDate }}</span>
         <span>{{ currentTime }}</span>
       </div>
-      <button
-        type="button"
-        :class="['logout-button', theme]"
-        aria-label="logout_button"
-      >
-        <span>Выход</span>
-        <LogoutIcon :class="['logout-icon', theme]" />
-      </button>
+      <router-link to="/login">
+        <button
+          type="button"
+          :class="['logout-button', theme]"
+          aria-label="logout_button"
+        >
+          <span>Выход</span>
+          <LogoutIcon :class="['logout-icon', theme]" />
+        </button>
+      </router-link>
     </div>
     <div @click="changeTheme()" class="theme-toggler">
       <ThemeTogglerIcon :class="['theme-toggler-icon', theme]" />
@@ -409,7 +411,7 @@ export default {
   }
 }
 
-@media screen and (min-width: 2560px) and (max-width: 3840px) {
+@media screen and (min-width: 3840px) {
   .dashboard-container {
     padding: 40px 50px;
 

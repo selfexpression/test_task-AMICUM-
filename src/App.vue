@@ -1,21 +1,14 @@
 <template>
   <div id="app" :class="theme">
-    <DashboardOverview />
-    <QuickAccess />
+    <router-view />
   </div>
 </template>
 
 <script>
-import DashboardOverview from './components/DashboardOverview.vue'
-import QuickAccess from './components/QuickAccess.vue'
 import { mapState } from 'vuex'
 
 export default {
   name: 'App',
-  components: {
-    QuickAccess,
-    DashboardOverview,
-  },
   computed: {
     ...mapState({
       theme: (state) => state.theme,
@@ -40,9 +33,6 @@ body {
 }
 
 #app {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  width: 100%;
   height: 100%;
 
   &.light {
@@ -52,5 +42,10 @@ body {
   &.dark {
     background-color: #56698f;
   }
+}
+
+a {
+  text-decoration: none;
+  color: currentColor;
 }
 </style>

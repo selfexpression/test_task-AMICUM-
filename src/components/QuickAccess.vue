@@ -5,22 +5,24 @@
     </div>
     <div class="options-wrapper">
       <div v-for="option in options" :key="option.id" class="option">
-        <div
-          v-if="option.id === 2 && !!notifications"
-          class="notification-count"
-        >
-          {{ notifications }}
-        </div>
-        <div class="option-item">
-          <component
-            :is="getOptionIcon(option.id)"
-            alt="option"
-            class="option-icon"
-          />
-          <span class="option-name">
-            {{ option.name }}
-          </span>
-        </div>
+        <router-link :to="getRoute(option.id)">
+          <div
+            v-if="option.id === 2 && !!notifications"
+            class="notification-count"
+          >
+            {{ notifications }}
+          </div>
+          <div class="option-item">
+            <component
+              :is="getOptionIcon(option.id)"
+              alt="option"
+              class="option-icon"
+            />
+            <span class="option-name">
+              {{ option.name }}
+            </span>
+          </div>
+        </router-link>
       </div>
     </div>
   </section>
@@ -71,6 +73,20 @@ export default {
           return 'Achievements'
         default:
           return null
+      }
+    },
+    getRoute(id) {
+      switch (id) {
+        case 1:
+          return 'startworking'
+        case 2:
+          return 'notifications'
+        case 3:
+          return 'education'
+        case 4:
+          return 'achievements'
+        default:
+          return '/'
       }
     },
   },
@@ -151,7 +167,7 @@ export default {
   }
 }
 
-@media screen and (min-width: 2560px) and (max-width: 3840px) {
+@media screen and (min-width: 3840px) {
   .options-container {
     .options-wrapper {
       width: 60%;
