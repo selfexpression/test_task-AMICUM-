@@ -5,7 +5,12 @@
     </div>
     <div class="options-wrapper">
       <div v-for="option in options" :key="option.id" class="options">
-        <div v-if="option.id === 2" class="notification-count">2</div>
+        <div
+          v-if="option.id === 2 && !!notifications"
+          class="notification-count"
+        >
+          {{ notifications }}
+        </div>
         <div class="option-item">
           <component
             :is="getOptionIcon(option.id)"
@@ -27,6 +32,7 @@ import Bump from '@/assets/icons/bump.svg'
 import Notifications from '@/assets/icons/notifications.svg'
 import Education from '@/assets/icons/education.svg'
 import Achievements from '@/assets/icons/achievements.svg'
+import { mapState } from 'vuex'
 
 export default {
   name: 'QuickAccess',
@@ -36,6 +42,11 @@ export default {
     Notifications,
     Education,
     Achievements,
+  },
+  computed: {
+    ...mapState({
+      notifications: (state) => state.notifications,
+    }),
   },
   data() {
     return {

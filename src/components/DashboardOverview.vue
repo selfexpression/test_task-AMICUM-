@@ -116,7 +116,7 @@ export default {
       'startTimer',
       'stopTimer',
       'updateCurrentDateAndTime',
-      'loadInfoAboutTraining',
+      'loadPersonalData',
     ]),
     ...mapGetters([
       'daysLeft',
@@ -191,7 +191,7 @@ export default {
   created() {
     this.updateCurrentDateAndTime()
     this.startTimer()
-    this.loadInfoAboutTraining()
+    this.loadPersonalData()
   },
   beforeDestroy() {
     this.stopTimer()

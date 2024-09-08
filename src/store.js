@@ -18,6 +18,7 @@ export const store = new Vuex.Store({
     briefing: null,
     currentDate: null,
     currentTime: null,
+    notifications: null,
     timerId: null,
   },
   mutations: {
@@ -34,13 +35,19 @@ export const store = new Vuex.Store({
       state.timerId = timerId
     },
     setInfoAboutTraining(state, payload) {
-      const { certificationDate, testResults, preShiftTraining, briefing } =
-        payload
+      const {
+        certificationDate,
+        testResults,
+        preShiftTraining,
+        briefing,
+        notifications,
+      } = payload
 
       state.certification.date = certificationDate
       state.testResults = testResults
       state.preShiftTraining = preShiftTraining
       state.briefing = briefing
+      state.notifications = notifications
     },
   },
   getters: {
@@ -65,7 +72,7 @@ export const store = new Vuex.Store({
     },
   },
   actions: {
-    loadInfoAboutTraining({ commit }) {
+    loadPersonalData({ commit }) {
       return new Promise(() => {
         setTimeout(() => {
           const payload = {
@@ -76,6 +83,7 @@ export const store = new Vuex.Store({
             },
             preShiftTraining: true,
             briefing: false,
+            notifications: 5,
           }
           commit('setInfoAboutTraining', payload)
         }, 1000)
